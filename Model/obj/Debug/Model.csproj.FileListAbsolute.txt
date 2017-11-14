@@ -1,0 +1,6 @@
+C:\Repository\Dayane\Model\bin\Debug\Model.dll
+C:\Repository\Dayane\Model\bin\Debug\Model.pdb
+C:\Repository\Dayane\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+C:\Repository\Dayane\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+C:\Repository\Dayane\Model\obj\Debug\Model.dll
+C:\Repository\Dayane\Model\obj\Debug\Model.pdb

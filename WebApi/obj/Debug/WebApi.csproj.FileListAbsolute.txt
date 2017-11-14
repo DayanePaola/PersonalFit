@@ -20,3 +20,9 @@ C:\Repository\Dayane\WebApi\obj\Debug\WebApi.csprojResolveAssemblyReference.cach
 C:\Repository\Dayane\WebApi\obj\Debug\WebApi.csproj.CoreCompileInputs.cache
 C:\Repository\Dayane\WebApi\obj\Debug\WebApi.dll
 C:\Repository\Dayane\WebApi\obj\Debug\WebApi.pdb
+C:\Repository\Dayane\WebApi\bin\Model.dll
+C:\Repository\Dayane\WebApi\bin\Util.dll
+C:\Repository\Dayane\WebApi\bin\Newtonsoft.Json.dll
+C:\Repository\Dayane\WebApi\bin\Util.pdb
+C:\Repository\Dayane\WebApi\bin\Model.pdb
+C:\Repository\Dayane\WebApi\bin\Newtonsoft.Json.xml

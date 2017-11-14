@@ -113,8 +113,17 @@
     <Folder Include="App_Data\" />
     <Folder Include="Business\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
     <Folder Include="Repository\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Mob.com.br\Util\Util.csproj">
+      <Project>{427e693a-e855-48e1-a6c5-68b8ec13a0e5}</Project>
+      <Name>Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{aef60e3a-e183-4c87-8db3-96f3b9f41d8c}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
