@@ -119,12 +119,15 @@
     <Folder Include="App_Data\" />
     <Folder Include="Business\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{aef60e3a-e183-4c87-8db3-96f3b9f41d8c}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\Repository.csproj">
+      <Project>{045fef4e-2806-4feb-982e-7618a7b3dd86}</Project>
+      <Name>Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{427e693a-e855-48e1-a6c5-68b8ec13a0e5}</Project>
