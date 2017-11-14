@@ -5,3 +5,7 @@
 /Util/bin
 /Util/obj/Debug
 /Util/obj/Release
+/Model/bin/Debug
+/WebApi/bin
+/Model/obj/Debug
+/WebApi/obj/Debug
