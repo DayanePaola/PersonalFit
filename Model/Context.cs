@@ -14,6 +14,10 @@ namespace Model
         public DbSet<ExercicioModel> Exercicio { get; set; }
         public DbSet<ProfessorModel> Professor { get; set; }
         public DbSet<TreinoModel> Treino { get; set; }
+        public DbSet<TreinoExercicioModel> TreinoExercicio { get; set; }
+        public DbSet<UsuarioModel> Usuario { get; set; }
+
+
 
 
     }

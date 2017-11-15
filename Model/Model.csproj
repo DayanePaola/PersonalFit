@@ -54,6 +54,7 @@
     <Compile Include="Model\ProfessorModel.cs" />
     <Compile Include="Model\TreinoExercicioModel.cs" />
     <Compile Include="Model\TreinoModel.cs" />
+    <Compile Include="Model\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
