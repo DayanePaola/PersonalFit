@@ -13,7 +13,7 @@ namespace Model
     {
         [Key]
         public int Id { get; set; }
-
+        
         [Required (ErrorMessage ="Campo obrigatório!")]
         [MinLength(5, ErrorMessage = "Deve possuir no mínimo 5 caracteres!")]
         [MaxLength(10, ErrorMessage = "Deve possuir no mínimo 10 caracteres!")]
