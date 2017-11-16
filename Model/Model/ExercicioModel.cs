@@ -11,7 +11,14 @@ namespace Model
     {
         [Key]
         public int Id { get; set; }
-        public String Nome { get; set; }
-        public String Equipamento { get; set; }
+        [Required]
+        public string Nome { get; set; }
+        [Required]
+        [MinLength(30, ErrorMessage = "Deve conter no minímo 30 caracteres!")]
+        [Display(Name = "Descrição do exercício*")]
+        public string Descricao { get; set; }
+        public string Equipamento { get; set; }
+
+        public virtual TreinoExercicioModel TreinoExercicio { get; set; }
     }
 }
