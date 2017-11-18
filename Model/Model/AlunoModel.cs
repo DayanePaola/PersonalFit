@@ -18,31 +18,31 @@ namespace Model
         [MinLength(4, ErrorMessage = "Deve possuir no mínimo 4 caracteres!")]
         [MaxLength(15, ErrorMessage = "Deve possuir no mínimo 15 caracteres!")]
         [Display(Name = "Nome*")]
-        public string nome { get; set; }
+        public string Nome { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
         [MinLength(3, ErrorMessage = "Deve possuir no mínimo 3 caracteres!")]
         [MaxLength(3, ErrorMessage = "Deve possuir no mínimo 3 caracteres!")]
         [Display(Name = "Idade*")]
-        public int idade { get; set; }
+        public int Idade { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
         [MinLength(4, ErrorMessage = "Deve possuir no mínimo 4 caracteres!")]
         [MaxLength(15, ErrorMessage = "Deve possuir no mínimo 15 caracteres!")]
         [Display(Name = "Peso*")]
-        public float peso { get; set; }
+        public float Peso { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
         [MinLength(3, ErrorMessage = "Deve possuir no mínimo 3 caracteres!")]
         [MaxLength(3, ErrorMessage = "Deve possuir no mínimo 3 caracteres!")]
         [Display(Name = "Altura*")]
-        public float altura { get; set; }
+        public float Altura { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
         [MinLength(5, ErrorMessage = "Deve possuir no mínimo 5 caracteres!")]
         [MaxLength(15, ErrorMessage = "Deve possuir no mínimo 15 caracteres!")]
         [Display(Name = "Objetivo*")]
-        public string objetivo { get; set; }
+        public string Objetivo { get; set; }
 
         [ForeignKey("USUARIOID")]
         public int UsuarioFK { get; set; }
