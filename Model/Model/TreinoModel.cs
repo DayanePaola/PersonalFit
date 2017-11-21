@@ -10,12 +10,27 @@ namespace Model
 {
     public class TreinoModel
     {
+        public TreinoModel()
+        {
+            this.TreinoExercicio = new HashSet<TreinoExercicioModel>();
+        }
+
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
         [ForeignKey("ALUNOID")]
         public int AlunoFK { get; set; }
 
-        public virtual TreinoExercicioModel TreinoExercicio  { get; set; }
+        [Required(ErrorMessage = "Campo obrigatório!")]
+        [Display( Name = "Situação*")]
+        public string Situacao { get; set; }
+
+        [Required]
+        public DateTime DataCadastro { get; set; }
+        
+        public virtual AlunoModel Aluno { get; set; }
+        public virtual ICollection<TreinoExercicioModel> TreinoExercicio  { get; set; }
     }
 }

@@ -12,6 +12,7 @@ namespace Model
     public class UsuarioModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
         [Required (ErrorMessage ="Campo obrigatório!")]
