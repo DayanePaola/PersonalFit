@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    [Table("TREINOEXERCICIO")]
     public class TreinoExercicioModel
     {
         [Key]
@@ -15,11 +16,11 @@ namespace Model
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("TREINOID")]
+        [ForeignKey("Treino")]
         public int TreinoFK { get; set; }
 
         [Required]
-        [ForeignKey("EXERCICIOID")]
+        [ForeignKey("Exercicio")]
         public int ExercicioFK { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]

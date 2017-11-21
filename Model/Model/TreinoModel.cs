@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    [Table("TREINO")]
     public class TreinoModel
     {
         public TreinoModel()
         {
-            this.TreinoExercicio = new HashSet<TreinoExercicioModel>();
+            TreinoExercicio = new HashSet<TreinoExercicioModel>();
         }
 
         [Key]
@@ -20,7 +21,7 @@ namespace Model
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("ALUNOID")]
+        [ForeignKey("Aluno")]
         public int AlunoFK { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]

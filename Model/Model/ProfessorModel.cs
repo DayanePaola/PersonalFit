@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    [Table("PROFESSOR")]
     public class ProfessorModel
     {
         public ProfessorModel()
         {
-            this.Aluno = new HashSet<AlunoModel>(); 
+            Aluno = new HashSet<AlunoModel>();
         }
 
         [Key]
@@ -20,7 +21,7 @@ namespace Model
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("USUARIOID")]
+        [ForeignKey("Usuario")]
         public int UsuarioFK { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]

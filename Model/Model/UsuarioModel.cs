@@ -11,6 +11,12 @@ namespace Model
     [Table("USUARIO")]
     public class UsuarioModel
     {
+        public UsuarioModel()
+        {
+            Professor = new HashSet<ProfessorModel>();
+            Aluno = new HashSet<AlunoModel>();
+        }
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -27,7 +33,7 @@ namespace Model
         [Display(Name = "Senha*")]
         public string Senha { get; set; }
 
-        public virtual ProfessorModel Professor { get; set; }
-        public virtual AlunoModel Aluno { get; set; }
+        public virtual ICollection<ProfessorModel> Professor { get; set; }
+        public virtual ICollection<AlunoModel> Aluno { get; set; }
     }
 }

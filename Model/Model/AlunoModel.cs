@@ -13,7 +13,7 @@ namespace Model
     {
         public AlunoModel()
         {
-            this.Treino = new HashSet<TreinoModel>();
+            Treino = new HashSet<TreinoModel>();
         }
 
         [Key]
@@ -33,19 +33,14 @@ namespace Model
         public string Cpf { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
-        [MinLength(1, ErrorMessage = "Deve possuir no mínimo 1 caracteres!")]
-        [MaxLength(3, ErrorMessage = "Deve possuir no máximo 3 caracteres!")]
         [Display(Name = "Idade*")]
         public int Idade { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
-        [MinLength(4, ErrorMessage = "Deve possuir no mínimo 4 caracteres!")]
-        [MaxLength(15, ErrorMessage = "Deve possuir no mínimo 15 caracteres!")]
         [Display(Name = "Peso*")]
         public double Peso { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatorio")]
-        [MaxLength(3, ErrorMessage = "Deve possuir no mínimo 3 caracteres!")]
         [Display(Name = "Altura*")]
         public double Altura { get; set; }
 
@@ -56,11 +51,11 @@ namespace Model
         public string Objetivo { get; set; }
 
         [Required]
-        [ForeignKey("USUARIOID")]
+        [ForeignKey("Usuario")]
         public int UsuarioFK { get; set; }
 
         [Required]
-        [ForeignKey("PROFESSORID")]
+        [ForeignKey("Professor")]
         public int ProfessorFK { get; set; }
 
         public virtual UsuarioModel Usuario { get; set; }

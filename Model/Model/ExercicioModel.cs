@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace Model
 {
+    [Table("EXERCICIO")]
     public class ExercicioModel
     {
         public ExercicioModel()
         {
-            this.TreinoExercicio = new HashSet<TreinoExercicioModel>();
+            TreinoExercicio = new HashSet<TreinoExercicioModel>();
         }
 
         [Key]
