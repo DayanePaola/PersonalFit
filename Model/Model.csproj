@@ -48,10 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
-    <Compile Include="Migrations\201711210205540_Initialdb.cs" />
-    <Compile Include="Migrations\201711210205540_Initialdb.Designer.cs">
-      <DependentUpon>201711210205540_Initialdb.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AlunoModel.cs" />
     <Compile Include="Model\ExercicioModel.cs" />
@@ -64,11 +60,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711210205540_Initialdb.resx">
-      <DependentUpon>201711210205540_Initialdb.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
