@@ -12,7 +12,12 @@ namespace WebApi.Controllers
 {
     public class UsuarioController : Controller
     {
-        private Context db = new Context();
+        private readonly Context db;
+
+        public UsuarioController()
+        {
+            db = Singleton.Instance.Context;
+        }
 
         // GET: Usuario
         public ActionResult Index()
