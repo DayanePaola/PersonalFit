@@ -120,13 +120,17 @@ namespace WebApi.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpGet]
+        public ActionResult Login()
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string temp)
+        {
+            throw new NotImplementedException();
+            //return View();
         }
     }
 }
