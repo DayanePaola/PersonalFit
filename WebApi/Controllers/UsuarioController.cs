@@ -138,6 +138,11 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         public ActionResult Login(UsuarioModel usuario)
         {
+            if (ModelState.ContainsKey("Erro"))
+            {
+                ModelState["Erro"].Errors.Clear();
+            }
+
             var senhaDecode = GeraMD5.GeraHash(usuario.Senha);
             var result = db.Usuario.Include(x => x.Aluno)
                                    .Include(x => x.Professor)
@@ -145,7 +150,8 @@ namespace WebApi.Controllers
 
             if (result == null)
             {
-
+                ModelState.AddModelError("Erro", "Usuário ou Senha inválido!");
+                return View(new UsuarioModel());
             }
 
             var role = string.Empty;
