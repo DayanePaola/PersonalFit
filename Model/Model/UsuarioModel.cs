@@ -29,7 +29,7 @@ namespace Model
 
         [Required(ErrorMessage = "Campo obrigatório!")]
         [MinLength(5, ErrorMessage = "Deve possuir no mínimo 5 caracteres!")]
-        [MaxLength(30, ErrorMessage = "Deve possuir no mínimo 30 caracteres!")]
+        [MaxLength(50, ErrorMessage = "Deve possuir no mínimo 30 caracteres!")]
         [Display(Name = "Senha*")]
         public string Senha { get; set; }
 
