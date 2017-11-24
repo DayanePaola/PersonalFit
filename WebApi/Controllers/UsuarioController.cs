@@ -7,9 +7,12 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model;
+using static Util.Validation;
+using System.Web.Security;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     public class UsuarioController : Controller
     {
         private readonly Context db;
@@ -121,16 +124,48 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(string temp)
+        [AllowAnonymous]
+        public ActionResult Login(UsuarioModel usuario)
         {
-            throw new NotImplementedException();
-            //return View();
+            var senhaDecode = GeraMD5.GeraHash(usuario.Senha);
+            var result = db.Usuario.Include(x => x.Aluno)
+                                   .Include(x => x.Professor)
+                                   .Where(x => x.Login == usuario.Login && x.Senha == senhaDecode).SingleOrDefault();
+
+            if (result == null)
+            {
+
+            }
+
+            var role = string.Empty;
+
+            if (result.Aluno != null)
+                role = "Aluno";
+            else if (result.Professor != null)
+                role = "Professor";
+
+            FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, usuario.Login, DateTime.Now, DateTime.Now.AddDays(1), false, role, "/");
+            HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
+            Response.Cookies.Add(cookie);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }
