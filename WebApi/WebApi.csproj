@@ -105,7 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ExercicioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfessorController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -127,6 +129,16 @@
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Exercicio\Create.cshtml" />
+    <Content Include="Views\Exercicio\Delete.cshtml" />
+    <Content Include="Views\Exercicio\Details.cshtml" />
+    <Content Include="Views\Exercicio\Edit.cshtml" />
+    <Content Include="Views\Exercicio\Index.cshtml" />
+    <Content Include="Views\Professor\Create.cshtml" />
+    <Content Include="Views\Professor\Delete.cshtml" />
+    <Content Include="Views\Professor\Details.cshtml" />
+    <Content Include="Views\Professor\Edit.cshtml" />
+    <Content Include="Views\Professor\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
