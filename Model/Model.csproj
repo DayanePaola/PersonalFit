@@ -52,6 +52,10 @@
     <Compile Include="Migrations\201711212329218_initialDB.Designer.cs">
       <DependentUpon>201711212329218_initialDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711240120464_alterTableUsuario.cs" />
+    <Compile Include="Migrations\201711240120464_alterTableUsuario.Designer.cs">
+      <DependentUpon>201711240120464_alterTableUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AlunoModel.cs" />
     <Compile Include="Model\ExercicioModel.cs" />
@@ -69,6 +73,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711212329218_initialDB.resx">
       <DependentUpon>201711212329218_initialDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711240120464_alterTableUsuario.resx">
+      <DependentUpon>201711240120464_alterTableUsuario.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
