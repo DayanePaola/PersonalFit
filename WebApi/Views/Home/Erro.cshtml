@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #FFF;
+        }
+
+        .conteudo {
+            margin: auto;
+            margin-top: 20px;
+            width: 70%;
+            height: 50%;
+            overflow: auto;
+            min-width: 200px;
+            max-width: 600px;
+            text-align: center;
+            border: 1px solid #000;
+        }
+
+        .icon {
+            height: 80px;
+        }
+
+        .btn-actions {
+            margin-top: 25px;
+        }
+    </style>
+    <title>Área Restrita</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="conteudo jumbotron">
+                <img src="~/Content/Images/sadFace.png" alt="Carinha triste" class="icon" />
+                <h2>Ocorreu um erro!</h2>
+                <hr />
+                <p>Você não tem permissão para acessar a página solicitada!</p>
+                <p>Por favor, entre com um usuário diferente ou contate o administrador do sistema.</p>
+                <div class="btn-actions">
+                    <a class="btn btn-primary" href='javascript:history.go(-1)'>Voltar</a>
+                    <a class="btn btn-success" href=@Url.Action("Logout", "Usuario")>Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
