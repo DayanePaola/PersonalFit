@@ -10,7 +10,6 @@ using Model;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
     public class AlunoController : Controller
     {
         private Context db = new Context();
