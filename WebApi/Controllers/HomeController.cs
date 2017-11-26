@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace WebApi.Controllers
 {
+    //[Authorize(Roles = "")]
     [Authorize]
     public class HomeController : Controller
     {
@@ -16,6 +17,7 @@ namespace WebApi.Controllers
 
             var teste = System.Web.HttpContext.Current.User.IsInRole("Aluno");
             var teste2 = System.Web.HttpContext.Current.User.IsInRole("Professor");
+            var teste3 = System.Web.HttpContext.Current.User.IsInRole("Admin");
 
             return View();
         }

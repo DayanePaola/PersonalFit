@@ -156,10 +156,12 @@ namespace WebApi.Controllers
 
             var role = string.Empty;
 
-            if (result.Aluno != null)
+            if (result.Aluno != null && result.Aluno.Count > 0)
                 role = "Aluno";
-            else if (result.Professor != null)
+            else if (result.Professor != null && result.Professor.Count > 0)
                 role = "Professor";
+            else if (result.Login == "admin")
+                role = "Admin";
 
             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, usuario.Login, DateTime.Now, DateTime.Now.AddDays(1), false, role, "/");
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));

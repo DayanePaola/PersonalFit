@@ -25,9 +25,31 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Aluno</a></li>
-                    <li><a href="#">Exercícios</a></li>
-                    <li><a href="#">Perfil</a></li>
+                    @if (User.IsInRole("Professor") || User.IsInRole("Admin"))
+                    {
+                        <li><a href="#">Alunos</a></li>
+                    }
+
+                    @if (User.IsInRole("Aluno") || User.IsInRole("Admin"))
+                    {
+                        <li><a href="#">Exercícios</a></li>
+                    }
+
+                    @if (User.IsInRole("Professor"))
+                    {
+                        <li><a href="#">Perfil</a></li>
+                    }
+
+                    @if (User.IsInRole("Aluno"))
+                    {
+                        <li><a href="#">Perfil</a></li>
+                    }
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><a href="#">Perfil</a></li>
+                        <li><a href="#">Administrar</a></li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
