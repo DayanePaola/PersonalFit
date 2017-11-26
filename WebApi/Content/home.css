@@ -1,0 +1,18 @@
+﻿.main {
+    padding: 20px;
+}
+
+.carSlider {
+    max-width: 80%;
+    max-height: 400px;
+    margin: 0 auto;
+}
+
+.about {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.subTitle{
+    font-weight: bold;
+}

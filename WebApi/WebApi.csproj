@@ -97,6 +97,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\home.css" />
+    <Content Include="Content\Images\acad1.jpg" />
+    <Content Include="Content\Images\acad2.jpeg" />
+    <Content Include="Content\Images\acad3.jpg" />
+    <Content Include="Content\Images\logo.ico" />
     <Content Include="Content\Images\sadFace.png" />
     <Content Include="Content\layout.css" />
     <Content Include="Global.asax" />

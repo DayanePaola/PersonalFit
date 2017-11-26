@@ -6,17 +6,12 @@ using System.Web.Mvc;
 
 namespace WebApi.Controllers
 {
-    //[Authorize(Roles = "")]
     [Authorize]
     public class HomeController : Controller
     {
         [HttpGet]
         public ActionResult Index()
         {
-            var auth = System.Web.HttpContext.Current.User.Identity.Name;
-
-            var teste = System.Web.HttpContext.Current.User.IsInRole("Aluno");
-            var teste2 = System.Web.HttpContext.Current.User.IsInRole("Professor");
             var teste3 = System.Web.HttpContext.Current.User.IsInRole("Admin");
 
             return View();
