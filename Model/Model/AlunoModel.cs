@@ -56,6 +56,7 @@ namespace Model
 
         [Required]
         [ForeignKey("Professor")]
+        [Display(Name = "Professor")]
         public int ProfessorFK { get; set; }
 
         public virtual UsuarioModel Usuario { get; set; }
