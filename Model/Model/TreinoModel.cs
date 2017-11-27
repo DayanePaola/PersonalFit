@@ -22,13 +22,15 @@ namespace Model
 
         [Required]
         [ForeignKey("Aluno")]
+        [Display( Name = "Aluno*")]
         public int AlunoFK { get; set; }
 
         [Required(ErrorMessage = "Campo obrigatório!")]
-        [Display( Name = "Situação*")]
+        [Display( Name = "Situação")]
         public string Situacao { get; set; }
 
         [Required]
+        [Display( Name = "Data de Cadastro")]
         public DateTime DataCadastro { get; set; }
         
         public virtual AlunoModel Aluno { get; set; }

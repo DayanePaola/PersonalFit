@@ -21,9 +21,9 @@ namespace WebApi.Controllers
             List<TreinoModel> treino = null;
 
             if (System.Web.HttpContext.Current.User.IsInRole("Aluno"))
-                treino = db.Treino.Where(x => x.Aluno.Usuario.Login == User.Identity.Name).ToList();
+                treino = db.Treino.Include(i => i.Aluno.Professor).Where(x => x.Aluno.Usuario.Login == User.Identity.Name && x.Situacao == "A").ToList();
             else if (System.Web.HttpContext.Current.User.IsInRole("Professor"))
-                treino = db.Treino.Where(x => x.Aluno.Professor.Usuario.Login == User.Identity.Name).ToList();
+                treino = db.Treino.Include(i => i.Aluno).Where(x => x.Aluno.Professor.Usuario.Login == User.Identity.Name && x.Situacao == "A").ToList();
             else
                 treino = db.Treino.Include(t => t.Aluno).ToList();
 
@@ -37,7 +37,31 @@ namespace WebApi.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TreinoModel treinoModel = db.Treino.Find(id);
+
+            List<TreinoModel> treino = null;
+
+            if (System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                treino = db.Treino.Where(x => x.Aluno.Professor.Usuario.Login == User.Identity.Name).ToList();
+
+                if (!treino.Any(x => x.Id == id))
+                    return RedirectToAction("Erro", "Home");
+            }
+            else if (System.Web.HttpContext.Current.User.IsInRole("Aluno"))
+            {
+                treino = db.Treino.Where(x => x.Aluno.Usuario.Login == User.Identity.Name).ToList();
+
+                if (!treino.Any(x => x.Id == id))
+                    return RedirectToAction("Erro", "Home");
+            }
+
+            TreinoModel treinoModel = db.Treino.Include(i => i.TreinoExercicio).Where(x => x.Id == id).SingleOrDefault();
+
+            foreach (var item in treinoModel.TreinoExercicio)
+            {
+                item.Exercicio = db.Exercicio.Where(x => x.Id == item.ExercicioFK).SingleOrDefault();
+            }
+
             if (treinoModel == null)
             {
                 return HttpNotFound();
@@ -46,7 +70,6 @@ namespace WebApi.Controllers
         }
 
         // GET: Treino/Create
-        [Authorize(Roles = "Professor")]
         public ActionResult Create()
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -54,7 +77,7 @@ namespace WebApi.Controllers
                 return RedirectToAction("Erro", "Home");
             }
 
-            ViewBag.AlunoFK = new SelectList(db.Aluno, "Id", "Nome");
+            ViewBag.AlunoFK = new SelectList(db.Aluno.Where(x => x.Professor.Usuario.Login == User.Identity.Name).ToList(), "Id", "Nome");
             return View();
         }
 
@@ -63,27 +86,30 @@ namespace WebApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Professor")]
-        public ActionResult Create([Bind(Include = "Id,AlunoFK,Situacao,DataCadastro")] TreinoModel treinoModel)
+        public ActionResult Create([Bind(Include = "Id,AlunoFK")] TreinoModel treinoModel)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
             {
                 return RedirectToAction("Erro", "Home");
             }
 
-            if (ModelState.IsValid)
+            treinoModel.Situacao = "A";
+            treinoModel.DataCadastro = DateTime.Now;
+
+            try
             {
                 db.Treino.Add(treinoModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.AlunoFK = new SelectList(db.Aluno, "Id", "Nome", treinoModel.AlunoFK);
-            return View(treinoModel);
+            catch (Exception)
+            {
+                ViewBag.AlunoFK = new SelectList(db.Aluno.Where(x => x.Professor.Usuario.Login == User.Identity.Name).ToList(), "Id", "Nome", treinoModel.AlunoFK);
+                return View(treinoModel);
+            }
         }
 
         // GET: Treino/Edit/5
-        [Authorize(Roles = "Professor")]
         public ActionResult Edit(int? id)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -111,7 +137,6 @@ namespace WebApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Professor")]
         public ActionResult Edit([Bind(Include = "Id,AlunoFK,Situacao,DataCadastro")] TreinoModel treinoModel)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -156,7 +181,6 @@ namespace WebApi.Controllers
         // POST: Treino/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Professor")]
         public ActionResult DeleteConfirmed(int id)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))

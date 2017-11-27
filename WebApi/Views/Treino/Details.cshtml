@@ -1,18 +1,17 @@
 ﻿@model Model.TreinoModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Personal Fit - Detalhes do Treino";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Detalhes do Treino</h2>
 
 <div>
-    <h4>TreinoModel</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Aluno.Nome)
+            @Html.DisplayName("Aluno")
         </dt>
 
         <dd>
@@ -24,7 +23,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Situacao)
+            @if (Model.Situacao == "A")
+            {
+                @Html.DisplayName("Ativo")
+            }
+            else
+            {
+                @Html.DisplayName("Inativo")
+            }
         </dd>
 
         <dt>
@@ -34,10 +40,67 @@
         <dd>
             @Html.DisplayFor(model => model.DataCadastro)
         </dd>
-
     </dl>
 </div>
+
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Exercício")
+            </th>
+            <th>
+                @Html.DisplayName("Descricao")
+            </th>
+            <th>
+                @Html.DisplayName("Equipamento")
+            </th>
+            <th>
+                @Html.DisplayName("Peso")
+            </th>
+            <th>
+                @Html.DisplayName("Repetições")
+            </th>
+            <th>
+
+            </th>
+        </tr>
+
+        @foreach (var item in Model.TreinoExercicio)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exercicio.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exercicio.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exercicio.Equipamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Peso)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Repeticoes)
+                </td>
+                <td>
+                    @if (User.IsInRole("Professor"))
+                    {
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }); @:|
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }); @:|
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id });
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (User.IsInRole("Professor"))
+    {
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) @:|
+        @Html.ActionLink("Ver todos", "Index")
+    }
 </p>
