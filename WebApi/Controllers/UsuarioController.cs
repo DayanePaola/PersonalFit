@@ -49,6 +49,7 @@ namespace WebApi.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Login,Senha")] UsuarioModel usuarioModel, string tipo)
         {
@@ -66,7 +67,7 @@ namespace WebApi.Controllers
 
             if (tipo == "A")
             {
-                return RedirectToAction("Create", "Aluno");
+                return RedirectToAction("Create", "Aluno", new { idUsuario = usuarioModel.Id });
             }
             else if (tipo == "P")
             {

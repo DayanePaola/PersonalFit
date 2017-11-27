@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model;
+using System.Web.Helpers;
 
 namespace WebApi.Controllers
 {
@@ -53,9 +54,12 @@ namespace WebApi.Controllers
         {
             if (ModelState.IsValid)
             {
+                alunoModel.UsuarioFK = idUsuario;
+                alunoModel.Cpf = Util.Validation.RemCaracteresEsp(alunoModel.Cpf, true);
+
                 db.Aluno.Add(alunoModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login", "Usuario");
             }
 
             ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome", alunoModel.ProfessorFK);

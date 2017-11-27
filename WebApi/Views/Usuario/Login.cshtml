@@ -35,7 +35,7 @@
             @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
         </div>
         <div class="">
-            Ainda não tem conta? <a href="#" id="btn_cadastro">Cadastre-se</a>
+            Ainda não tem conta? <a href="@Url.Action("Create")" id="btn_cadastro">Cadastre-se</a>
         </div>
         <div class="form-group" style="float: right">
             <input type="submit" value="Login" class="btn btn-primary" />
