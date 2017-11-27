@@ -1,18 +1,17 @@
 ﻿@model Model.UsuarioModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Personal Fit - Novo";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Novo usuário</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>UsuarioModel</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -26,19 +25,50 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @id = "inputSenha", @class = "form-control", @type = "password" } })
                 @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
+            @Html.Label("Confirmar senha*", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Editor("Confirmar senha", new { htmlAttributes = new { @id = "inputConfirmaSenha", @class = "form-control", @type = "password" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Tipo de cadastro*", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="radio-group">
+                    @Html.RadioButton("tipo", "A", new { @id = "rb-a", @required = "required" })
+                    <label class="lbl-radio" for="rb-m">Aluno</label> |
+                    @Html.RadioButton("tipo", "P", new { @id = "rb-p" })
+                    <label class="lbl-radio" for="rb-f">Professor</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group ">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Continuar cadastro" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script>
+    var password = document.getElementById("inputSenha")
+        , confirm_password = document.getElementById("inputConfirmaSenha");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Senhas diferentes!");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>

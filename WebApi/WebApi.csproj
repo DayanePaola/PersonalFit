@@ -107,6 +107,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
+    <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
