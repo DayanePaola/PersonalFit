@@ -9,7 +9,8 @@ using System.Web.Mvc;
 using Model;
 
 namespace WebApi.Controllers
-{[Authorize]
+{
+    [Authorize]
     public class ExercicioController : Controller
     {
         private Context db = new Context();
@@ -17,12 +18,22 @@ namespace WebApi.Controllers
         // GET: Exercicio
         public ActionResult Index()
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             return View(db.Exercicio.ToList());
         }
 
         // GET: Exercicio/Details/5
         public ActionResult Details(int? id)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -48,6 +59,11 @@ namespace WebApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,Descricao,Equipamento")] ExercicioModel exercicioModel)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Exercicio.Add(exercicioModel);
@@ -61,6 +77,11 @@ namespace WebApi.Controllers
         // GET: Exercicio/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +101,11 @@ namespace WebApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,Descricao,Equipamento")] ExercicioModel exercicioModel)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(exercicioModel).State = EntityState.Modified;
@@ -92,6 +118,11 @@ namespace WebApi.Controllers
         // GET: Exercicio/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -109,6 +140,11 @@ namespace WebApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             ExercicioModel exercicioModel = db.Exercicio.Find(id);
             db.Exercicio.Remove(exercicioModel);
             db.SaveChanges();
