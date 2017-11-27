@@ -15,12 +15,7 @@ namespace WebApi.Controllers
     [Authorize]
     public class UsuarioController : Controller
     {
-        private readonly Context db;
-
-        public UsuarioController()
-        {
-            db = Singleton.Instance.Context;
-        }
+        private Context db = new Context();
 
         // GET: Usuario
         public ActionResult Index()
@@ -44,6 +39,7 @@ namespace WebApi.Controllers
         }
 
         // GET: Usuario/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
             return View();
@@ -54,13 +50,27 @@ namespace WebApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Login,Senha")] UsuarioModel usuarioModel)
+        public ActionResult Create([Bind(Include = "Id,Login,Senha")] UsuarioModel usuarioModel, string tipo)
         {
             if (ModelState.IsValid)
             {
+                usuarioModel.Senha = GeraMD5.GeraHash(usuarioModel.Senha);
+
                 db.Usuario.Add(usuarioModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(usuarioModel);
+            }
+
+            if (tipo == "A")
+            {
+                return RedirectToAction("Create", "Aluno");
+            }
+            else if (tipo == "P")
+            {
+                return RedirectToAction("Create", "Professor");
             }
 
             return View(usuarioModel);
@@ -170,10 +180,20 @@ namespace WebApi.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

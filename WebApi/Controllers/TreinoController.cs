@@ -18,7 +18,15 @@ namespace WebApi.Controllers
         // GET: Treino
         public ActionResult Index()
         {
-            var treino = db.Treino.Include(t => t.Aluno);
+            List<TreinoModel> treino = null;
+
+            if (System.Web.HttpContext.Current.User.IsInRole("Aluno"))
+                treino = db.Treino.Where(x => x.Aluno.Usuario.Login == User.Identity.Name).ToList();
+            else if (System.Web.HttpContext.Current.User.IsInRole("Professor"))
+                treino = db.Treino.Where(x => x.Aluno.Professor.Usuario.Login == User.Identity.Name).ToList();
+            else
+                treino = db.Treino.Include(t => t.Aluno).ToList();
+
             return View(treino.ToList());
         }
 
@@ -38,6 +46,7 @@ namespace WebApi.Controllers
         }
 
         // GET: Treino/Create
+        [Authorize(Roles = "Professor")]
         public ActionResult Create()
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -54,6 +63,7 @@ namespace WebApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Professor")]
         public ActionResult Create([Bind(Include = "Id,AlunoFK,Situacao,DataCadastro")] TreinoModel treinoModel)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -73,6 +83,7 @@ namespace WebApi.Controllers
         }
 
         // GET: Treino/Edit/5
+        [Authorize(Roles = "Professor")]
         public ActionResult Edit(int? id)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -100,6 +111,7 @@ namespace WebApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Professor")]
         public ActionResult Edit([Bind(Include = "Id,AlunoFK,Situacao,DataCadastro")] TreinoModel treinoModel)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -119,6 +131,7 @@ namespace WebApi.Controllers
         }
 
         // GET: Treino/Delete/5
+        [Authorize(Roles = "Professor")]
         public ActionResult Delete(int? id)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -143,6 +156,7 @@ namespace WebApi.Controllers
         // POST: Treino/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Professor")]
         public ActionResult DeleteConfirmed(int id)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))

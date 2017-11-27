@@ -7,6 +7,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="~/Content/Images/logo.ico">
     <script type="text/javascript" src="~/Scripts/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.mask.js"></script>
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -23,28 +24,25 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    @if (User.IsInRole("Professor") || User.IsInRole("Admin"))
-                    {
-                        <li><a href="#">Alunos</a></li>
-                    }
-
-                    @if (User.IsInRole("Aluno") || User.IsInRole("Admin"))
-                    {
-                        <li><a href="#">Exercícios</a></li>
-                    }
-
                     @if (User.IsInRole("Professor"))
                     {
+                        <li><a href="#">Alunos</a></li>
+                        <li><a href="#">Exercícios</a></li>
+                        <li><a href="#">Treino</a></li>
                         <li><a href="#">Perfil</a></li>
                     }
 
                     @if (User.IsInRole("Aluno"))
                     {
+                        <li><a href="#">Treino</a></li>
                         <li><a href="#">Perfil</a></li>
                     }
 
                     @if (User.IsInRole("Admin"))
                     {
+                        <li><a href="#">Alunos</a></li>
+                        <li><a href="#">Exercícios</a></li>
+                        <li><a href="#">Treino</a></li>
                         <li><a href="#">Perfil</a></li>
                         <li><a href="#">Administrar</a></li>
                     }
