@@ -17,7 +17,7 @@ namespace WebApi.Controllers
         // GET: Aluno
         public ActionResult Index()
         {
-            var aluno = db.Aluno.Include(a => a.Professor).Include(a => a.Usuario);
+            var aluno = db.Aluno.Where(x => x.Professor.Usuario.Login == User.Identity.Name);
             return View(aluno.ToList());
         }
 
@@ -37,10 +37,10 @@ namespace WebApi.Controllers
         }
 
         // GET: Aluno/Create
-        public ActionResult Create()
+        public ActionResult Create(int idUsuario)
         {
             ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome");
-            ViewBag.UsuarioFK = new SelectList(db.Usuario, "Id", "Login");
+            ViewData["idUsuario"] = idUsuario;
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace WebApi.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Idade,Peso,Altura,Objetivo,UsuarioFK,ProfessorFK")] AlunoModel alunoModel)
+        public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Idade,Peso,Altura,Objetivo,ProfessorFK")] AlunoModel alunoModel, int idUsuario)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
             }
 
             ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome", alunoModel.ProfessorFK);
-            ViewBag.UsuarioFK = new SelectList(db.Usuario, "Id", "Login", alunoModel.UsuarioFK);
+            ViewData["idUsuario"] = idUsuario;
             return View(alunoModel);
         }
 
