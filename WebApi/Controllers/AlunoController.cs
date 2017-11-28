@@ -123,12 +123,25 @@ namespace WebApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,Cpf,Idade,Peso,Altura,Objetivo,UsuarioFK,ProfessorFK")] AlunoModel alunoModel)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Aluno"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
+            var usuarioLogado = db.Aluno.Where(x => x.Id == id).Select(x => x.Usuario).SingleOrDefault();
+
+            if (User.Identity.Name != usuarioLogado.Login)
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(alunoModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome", alunoModel.ProfessorFK);
             ViewBag.UsuarioFK = new SelectList(db.Usuario, "Id", "Login", alunoModel.UsuarioFK);
             return View(alunoModel);
