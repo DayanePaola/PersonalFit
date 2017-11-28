@@ -137,7 +137,7 @@ namespace WebApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AlunoFK,Situacao,DataCadastro")] TreinoModel treinoModel)
+        public ActionResult Edit([Bind(Include = "Id,AlunoFK,Situacao,DataCadastro")] TreinoModel treinoModel, string situacao)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
             {
@@ -146,6 +146,8 @@ namespace WebApi.Controllers
 
             if (ModelState.IsValid)
             {
+                treinoModel.Situacao = situacao;
+
                 db.Entry(treinoModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
