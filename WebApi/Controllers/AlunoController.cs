@@ -28,13 +28,19 @@ namespace WebApi.Controllers
         }
 
         // GET: Aluno/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string user)
         {
-            if (id == null)
+            if (!System.Web.HttpContext.Current.User.IsInRole("Aluno") || !(user == User.Identity.Name))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
+            if (user == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AlunoModel alunoModel = db.Aluno.Find(id);
+            
+            AlunoModel alunoModel = db.Aluno.Where(x => x.Usuario.Login == user).SingleOrDefault();
             if (alunoModel == null)
             {
                 return HttpNotFound();
