@@ -23,16 +23,25 @@ namespace WebApi.Controllers
                 return RedirectToAction("Erro", "Home");
             }
 
-            var aluno = db.Aluno.Where(x => x.Professor.Usuario.Login == User.Identity.Name).ToList();
+            var aluno = db.Aluno.Include(i => i.Usuario).Where(x => x.Professor.Usuario.Login == User.Identity.Name).ToList();
             return View(aluno);
         }
 
         // GET: Aluno/Details/5
         public ActionResult Details(string user)
         {
-            if (!System.Web.HttpContext.Current.User.IsInRole("Aluno") || !(user == User.Identity.Name))
+            if (System.Web.HttpContext.Current.User.IsInRole("Aluno") && !(user == User.Identity.Name))
             {
                 return RedirectToAction("Erro", "Home");
+            }
+            else if (System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                var aluno = db.Aluno.Include(i => i.Usuario).Where(x => x.Professor.Usuario.Login == User.Identity.Name).ToList();
+
+                if (!aluno.Any(x => x.Usuario.Login == user))
+                {
+                    return RedirectToAction("Erro", "Home");
+                }
             }
 
             if (user == null)
