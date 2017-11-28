@@ -3,7 +3,31 @@
 @{
     ViewBag.Title = "Personal Fit - Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    bool openModal = (bool)ViewData["openModal"];
 }
+
+@if (openModal)
+{
+   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Completar cadastro</h4>
+                </div>
+                <div class="modal-body">
+                    Selecione o tipo de cadastro
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                    <a href="@Url.Action("Create", "Aluno", new { idUsuario = Model.Id })" class="btn btn-primary">Aluno</a>
+                    <a href="@Url.Action("Create", "Professor", new { idUsuario = Model.Id })" class="btn btn-primary">Professor</a>
+                </div>    
+            </div>
+        </div>
+    </div>
+}
+
 
 @if (ViewData.ModelState.Any(x => x.Key == "Erro"))
 {
@@ -42,3 +66,7 @@
         </div>
     </div>
 }
+
+<script>
+    $('#myModal').modal('show');
+</script>

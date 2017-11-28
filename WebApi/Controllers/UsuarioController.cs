@@ -151,6 +151,8 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
+            ViewData["openModal"] = false;
+
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -166,6 +168,8 @@ namespace WebApi.Controllers
             {
                 ModelState["Erro"].Errors.Clear();
             }
+
+            ViewData["openModal"] = false;
 
             var senhaDecode = GeraMD5.GeraHash(usuario.Senha);
             var result = db.Usuario.Include(x => x.Aluno)
@@ -186,6 +190,11 @@ namespace WebApi.Controllers
                 role = "Professor";
             else if (result.Login == "admin")
                 role = "Admin";
+            else
+            {
+                ViewData["openModal"] = true;
+                return View(result);
+            }
 
             FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1, usuario.Login, DateTime.Now, DateTime.Now.AddDays(1), false, role, "/");
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
