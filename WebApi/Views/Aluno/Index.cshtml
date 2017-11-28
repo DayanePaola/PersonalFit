@@ -5,8 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Alunos</h2>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Novo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -38,9 +39,7 @@
             <td>
 
                 @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Treino", "Details", "Treino", new { id = item.Id }, null) |
-
-
+                @Html.ActionLink("Treinos", "Index", "Treino", new { id = item.Id }, null)
             </td>
         </tr>
     }
