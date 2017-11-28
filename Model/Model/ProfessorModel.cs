@@ -32,7 +32,6 @@ namespace Model
 
         [Required(ErrorMessage = "Campo obrigatorio")]
         [MinLength(9, ErrorMessage = "Deve conter no minímo 9 caracteres!")]
-        [MaxLength(11, ErrorMessage = "Deve conter no máximo 11 caracteres!")]
         [Display(Name = "CPF*")]
         public string Cpf { get; set; }
 
