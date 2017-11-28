@@ -78,7 +78,11 @@
 <p>
     @if (User.IsInRole("Aluno"))
     {
-        @Html.ActionLink("Editar", "Edit", new { id = Model.Id })@: |
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id });
     }
-    @Html.ActionLink("Ver todos", "Index")
+    else if (User.IsInRole("Professor"))
+    {
+        @Html.ActionLink("Ver todos", "Index");
+    }
+
 </p>

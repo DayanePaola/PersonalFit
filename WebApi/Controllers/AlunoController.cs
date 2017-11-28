@@ -134,7 +134,7 @@ namespace WebApi.Controllers
                 return RedirectToAction("Erro", "Home");
             }
 
-            var usuarioLogado = db.Aluno.Where(x => x.Id == id).Select(x => x.Usuario).SingleOrDefault();
+            var usuarioLogado = db.Aluno.Where(x => x.Id == alunoModel.Id).Select(x => x.Usuario).SingleOrDefault();
 
             if (User.Identity.Name != usuarioLogado.Login)
             {
@@ -145,7 +145,7 @@ namespace WebApi.Controllers
             {
                 db.Entry(alunoModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { user = User.Identity.Name});
             }
 
             ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome", alunoModel.ProfessorFK);

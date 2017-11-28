@@ -45,7 +45,7 @@ namespace Model
 
         [Required(ErrorMessage = "Campo obrigatorio")]
         [MinLength(5, ErrorMessage = "Deve possuir no mínimo 5 caracteres!")]
-        [MaxLength(30, ErrorMessage = "Deve possuir no máximo 15 caracteres!")]
+        [MaxLength(30, ErrorMessage = "Deve possuir no máximo 30 caracteres!")]
         [Display(Name = "Objetivo*")]
         public string Objetivo { get; set; }
 
