@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201711240120464_alterTableUsuario.Designer.cs">
       <DependentUpon>201711240120464_alterTableUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711280222057_AlterTableTreino.cs" />
+    <Compile Include="Migrations\201711280222057_AlterTableTreino.Designer.cs">
+      <DependentUpon>201711280222057_AlterTableTreino.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\AlunoModel.cs" />
     <Compile Include="Model\ExercicioModel.cs" />
@@ -75,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711240120464_alterTableUsuario.resx">
       <DependentUpon>201711240120464_alterTableUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711280222057_AlterTableTreino.resx">
+      <DependentUpon>201711280222057_AlterTableTreino.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

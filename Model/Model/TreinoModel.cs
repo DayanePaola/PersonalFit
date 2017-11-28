@@ -21,6 +21,10 @@ namespace Model
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Titulo*")]
+        public string Titulo { get; set; }
+
+        [Required]
         [ForeignKey("Aluno")]
         [Display( Name = "Aluno*")]
         public int AlunoFK { get; set; }
