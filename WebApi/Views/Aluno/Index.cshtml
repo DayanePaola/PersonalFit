@@ -10,26 +10,12 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Professor.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.Login)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cpf)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Idade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Peso)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Altura)
+            @Html.DisplayName("IMC")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Objetivo)
@@ -41,33 +27,20 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Professor.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Usuario.Login)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cpf)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Idade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Peso)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Altura)
+                @Math.Round((double)item.Peso / (item.Altura * item.Altura), 2)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Objetivo)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Treino", "Details", "Treino", new { id = item.Id }, null) |
+
+
             </td>
         </tr>
     }

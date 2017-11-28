@@ -11,6 +11,7 @@ using System.Web.Helpers;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
     public class AlunoController : Controller
     {
         private Context db = new Context();
@@ -18,8 +19,8 @@ namespace WebApi.Controllers
         // GET: Aluno
         public ActionResult Index()
         {
-            var aluno = db.Aluno.Where(x => x.Professor.Usuario.Login == User.Identity.Name);
-            return View(aluno.ToList());
+            var aluno = db.Aluno.Where(x => x.Professor.Usuario.Login == User.Identity.Name).ToList();
+            return View(aluno);
         }
 
         // GET: Aluno/Details/5
