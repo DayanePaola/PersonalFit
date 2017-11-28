@@ -43,6 +43,7 @@ namespace WebApi.Controllers
         }
 
         // GET: Aluno/Create
+        [AllowAnonymous]
         public ActionResult Create(int idUsuario)
         {
             ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome");
@@ -52,6 +53,7 @@ namespace WebApi.Controllers
 
         // POST: Aluno/Create
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Idade,Peso,Altura,Objetivo,ProfessorFK")] AlunoModel alunoModel, int idUsuario)
         {

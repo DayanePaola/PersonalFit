@@ -84,7 +84,7 @@ namespace WebApi.Controllers
             }
             else if (tipo == "P")
             {
-                return RedirectToAction("Create", "Professor");
+                return RedirectToAction("Create", "Professor", new { idUsuario = usuarioModel.Id });
             }
 
             return View(usuarioModel);
