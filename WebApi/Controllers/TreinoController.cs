@@ -97,7 +97,7 @@ namespace WebApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AlunoFK")] TreinoModel treinoModel)
+        public ActionResult Create([Bind(Include = "Id,AlunoFK,Titulo")] TreinoModel treinoModel)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
             {
@@ -148,14 +148,14 @@ namespace WebApi.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AlunoFK,Situacao,DataCadastro")] TreinoModel treinoModel, string situacao)
+        public ActionResult Edit([Bind(Include = "Id,AlunoFK,Titulo,DataCadastro")] TreinoModel treinoModel, string situacao)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
             {
                 return RedirectToAction("Erro", "Home");
             }
 
-            if (ModelState.IsValid)
+            try
             {
                 treinoModel.Situacao = situacao;
 
@@ -163,9 +163,11 @@ namespace WebApi.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.AlunoFK = new SelectList(db.Aluno, "Id", "Nome", treinoModel.AlunoFK);
-            return View(treinoModel);
+            catch (Exception)
+            {
+                ViewBag.AlunoFK = new SelectList(db.Aluno, "Id", "Nome", treinoModel.AlunoFK);
+                return View(treinoModel);
+            }
         }
 
         // GET: Treino/Delete/5

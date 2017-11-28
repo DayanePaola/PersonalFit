@@ -58,10 +58,23 @@ namespace WebApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Idade,Peso,Altura,Objetivo,ProfessorFK")] AlunoModel alunoModel, int idUsuario)
         {
+            if (ModelState.ContainsKey("Erro"))
+            {
+                ModelState["Erro"].Errors.Clear();
+            }
+
             if (ModelState.IsValid)
             {
                 alunoModel.UsuarioFK = idUsuario;
                 alunoModel.Cpf = Util.Validation.RemCaracteresEsp(alunoModel.Cpf, true);
+
+                var cpfValid = Util.Validation.ValidaCPF(alunoModel.Cpf);
+
+                if (!cpfValid)
+                {
+                    ModelState.AddModelError("Erro", "CPF inválido!");
+                    return View(alunoModel);
+                }
 
                 db.Aluno.Add(alunoModel);
                 db.SaveChanges();
