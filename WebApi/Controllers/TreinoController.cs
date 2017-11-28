@@ -16,18 +16,29 @@ namespace WebApi.Controllers
         private Context db = new Context();
 
         // GET: Treino
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            List<TreinoModel> treino = null;
+            if (id == null)
+            {
+                List<TreinoModel> treino = null;
 
-            if (System.Web.HttpContext.Current.User.IsInRole("Aluno"))
-                treino = db.Treino.Include(i => i.Aluno.Professor).Where(x => x.Aluno.Usuario.Login == User.Identity.Name && x.Situacao == "A").ToList();
-            else if (System.Web.HttpContext.Current.User.IsInRole("Professor"))
-                treino = db.Treino.Include(i => i.Aluno).Where(x => x.Aluno.Professor.Usuario.Login == User.Identity.Name && x.Situacao == "A").ToList();
-            else
-                treino = db.Treino.Include(t => t.Aluno).ToList();
+                if (System.Web.HttpContext.Current.User.IsInRole("Aluno"))
+                    treino = db.Treino.Include(i => i.Aluno.Professor).Where(x => x.Aluno.Usuario.Login == User.Identity.Name && x.Situacao == "A").ToList();
+                else if (System.Web.HttpContext.Current.User.IsInRole("Professor"))
+                    treino = db.Treino.Include(i => i.Aluno).Where(x => x.Aluno.Professor.Usuario.Login == User.Identity.Name && x.Situacao == "A").ToList();
+                else
+                    treino = db.Treino.Include(t => t.Aluno).ToList();
 
-            return View(treino.ToList());
+                return View(treino.ToList());
+            }
+
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
+            var treinoAl = db.Treino.Include(i => i.Aluno).Where(x => x.Aluno.Id == id).ToList();
+            return View(treinoAl);
         }
 
         // GET: Treino/Details/5
