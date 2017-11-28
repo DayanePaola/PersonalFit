@@ -10,8 +10,7 @@ using Model;
 using System.Web.Helpers;
 
 namespace WebApi.Controllers
-{
-    [Authorize]
+{[Authorize]
     public class AlunoController : Controller
     {
         private Context db = new Context();
@@ -47,8 +46,6 @@ namespace WebApi.Controllers
         }
 
         // POST: Aluno/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Nome,Cpf,Idade,Peso,Altura,Objetivo,ProfessorFK")] AlunoModel alunoModel, int idUsuario)
@@ -86,8 +83,6 @@ namespace WebApi.Controllers
         }
 
         // POST: Aluno/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Nome,Cpf,Idade,Peso,Altura,Objetivo,UsuarioFK,ProfessorFK")] AlunoModel alunoModel)

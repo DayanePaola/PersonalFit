@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Model;
+using System.Web.Helpers;
 
 namespace WebApi.Controllers
 {[Authorize]
@@ -37,27 +38,30 @@ namespace WebApi.Controllers
         }
 
         // GET: Professor/Create
-        public ActionResult Create()
+        public ActionResult Create(int idUsuario)
         {
             ViewBag.UsuarioFK = new SelectList(db.Usuario, "Id", "Login");
+            ViewData["idUsuario"] = idUsuario;
             return View();
         }
 
         // POST: Professor/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UsuarioFK,Nome,Cpf,Cref")] ProfessorModel professorModel)
+        public ActionResult Create([Bind(Include = "Id,UsuarioFK,Nome,Cpf,Cref")] ProfessorModel professorModel, int idUsuario)
         {
             if (ModelState.IsValid)
             {
+                professorModel.UsuarioFK = idUsuario;
+                professorModel.Cpf = Util.Validation.RemCaracteresEsp(professorModel.Cpf, true);
+
                 db.Professor.Add(professorModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
             ViewBag.UsuarioFK = new SelectList(db.Usuario, "Id", "Login", professorModel.UsuarioFK);
+            ViewData["idUsuario"] = idUsuario;
             return View(professorModel);
         }
 
@@ -78,8 +82,6 @@ namespace WebApi.Controllers
         }
 
         // POST: Professor/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,UsuarioFK,Nome,Cpf,Cref")] ProfessorModel professorModel)
