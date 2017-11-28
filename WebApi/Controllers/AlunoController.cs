@@ -143,13 +143,23 @@ namespace WebApi.Controllers
 
             if (ModelState.IsValid)
             {
+                alunoModel.Cpf = Util.Validation.RemCaracteresEsp(alunoModel.Cpf, true);
+
+                var cpfValid = Util.Validation.ValidaCPF(alunoModel.Cpf);
+
+                if (!cpfValid)
+                {
+                    ModelState.AddModelError("Erro", "CPF inválido!");
+                    ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome", alunoModel.ProfessorFK);
+                    return View(alunoModel);
+                }
+
                 db.Entry(alunoModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Details", new { user = User.Identity.Name});
             }
 
             ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome", alunoModel.ProfessorFK);
-            ViewBag.UsuarioFK = new SelectList(db.Usuario, "Id", "Login", alunoModel.UsuarioFK);
             return View(alunoModel);
         }
 
