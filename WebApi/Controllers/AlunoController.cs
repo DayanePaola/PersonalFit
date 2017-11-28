@@ -72,6 +72,8 @@ namespace WebApi.Controllers
                 if (!cpfValid)
                 {
                     ModelState.AddModelError("Erro", "CPF inválido!");
+                    ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome", alunoModel.ProfessorFK);
+                    ViewData["idUsuario"] = idUsuario;
                     return View(alunoModel);
                 }
 
@@ -135,16 +137,17 @@ namespace WebApi.Controllers
         // GET: Aluno/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            AlunoModel alunoModel = db.Aluno.Find(id);
-            if (alunoModel == null)
-            {
-                return HttpNotFound();
-            }
-            return View(alunoModel);
+            return RedirectToAction("Erro", "Home");
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //AlunoModel alunoModel = db.Aluno.Find(id);
+            //if (alunoModel == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(alunoModel);
         }
 
         // POST: Aluno/Delete/5
@@ -152,10 +155,11 @@ namespace WebApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            AlunoModel alunoModel = db.Aluno.Find(id);
-            db.Aluno.Remove(alunoModel);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Erro", "Home");
+            //AlunoModel alunoModel = db.Aluno.Find(id);
+            //db.Aluno.Remove(alunoModel);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
