@@ -29,13 +29,13 @@
                         <li><a href="@Url.Action("Index", "Aluno")">Alunos</a></li>
                         <li><a href="@Url.Action("Index", "Exercicio")">Exercícios</a></li>
                         <li><a href="@Url.Action("Index", "Treino")">Treino</a></li>
-                        <li><a href="@Url.Action("Details", "Professor")">Perfil</a></li>
+                        <li><a href="@Url.Action("Details", "Professor", new { user = User.Identity.Name })">Perfil</a></li>
                     }
 
                     @if (User.IsInRole("Aluno"))
                     {
                         <li><a href="@Url.Action("Index", "Treino")">Treino</a></li>
-                        <li><a href="@Url.Action("Details", "Aluno")">Perfil</a></li>
+                        <li><a href="@Url.Action("Details", "Aluno", new { user = User.Identity.Name })">Perfil</a></li>
                     }
 
                     @if (User.IsInRole("Admin"))
