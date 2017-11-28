@@ -42,7 +42,6 @@
         </dd>
     </dl>
 </div>
-
 <div>
     <table class="table">
         <tr>
@@ -60,9 +59,6 @@
             </th>
             <th>
                 @Html.DisplayName("Repetições")
-            </th>
-            <th>
-
             </th>
         </tr>
 
@@ -84,14 +80,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Repeticoes)
                 </td>
-                <td>
-                    @if (User.IsInRole("Professor"))
-                    {
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }); @:|
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }); @:|
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id });
-                    }
-                </td>
             </tr>
         }
 
@@ -100,6 +88,7 @@
 <p>
     @if (User.IsInRole("Professor"))
     {
+        @Html.ActionLink("Cadastrar exercício", "CreateTreinoExercicio", new { id = Model.Id }) @:|
         @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) @:|
         @Html.ActionLink("Ver todos", "Index")
     }

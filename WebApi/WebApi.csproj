@@ -159,6 +159,7 @@
     <Content Include="Views\Aluno\Details.cshtml" />
     <Content Include="Views\Aluno\Edit.cshtml" />
     <Content Include="Views\Aluno\Index.cshtml" />
+    <Content Include="Views\Treino\CreateTreinoExercicio.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

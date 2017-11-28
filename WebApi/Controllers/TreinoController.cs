@@ -100,7 +100,7 @@ namespace WebApi.Controllers
             {
                 db.Treino.Add(treinoModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CreateTreinoExercicio", new { id = treinoModel.Id });
             }
             catch (Exception)
             {
@@ -156,7 +156,6 @@ namespace WebApi.Controllers
         }
 
         // GET: Treino/Delete/5
-        [Authorize(Roles = "Professor")]
         public ActionResult Delete(int? id)
         {
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
@@ -192,6 +191,49 @@ namespace WebApi.Controllers
             db.Treino.Remove(treinoModel);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult CreateTreinoExercicio(int? id)
+        {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ViewBag.ExercicioFK = new SelectList(db.Exercicio.ToList(), "Id", "Nome");
+            ViewData["idTreino"] = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateTreinoExercicio([Bind(Include = "Id,ExercicioFK,Peso,Repeticoes")]TreinoExercicioModel treinoExModel, int idTreino, bool chk_continua)
+        {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
+            treinoExModel.TreinoFK = idTreino;
+
+            if (ModelState.IsValid)
+            {
+                db.TreinoExercicio.Add(treinoExModel);
+                db.SaveChanges();
+
+                if (chk_continua)
+                    return RedirectToAction("CreateTreinoExercicio", new { id = idTreino });
+
+                return RedirectToAction("Details", "Treino", new { id = idTreino });
+            }
+
+            ViewBag.ExercicioFK = new SelectList(db.Exercicio.ToList(), "Id", "Nome", treinoExModel.ExercicioFK);
+            ViewData["idTreino"] = idTreino;
+            return View(treinoExModel);
         }
 
         protected override void Dispose(bool disposing)
