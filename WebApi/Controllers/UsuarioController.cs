@@ -53,8 +53,21 @@ namespace WebApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Login,Senha")] UsuarioModel usuarioModel, string tipo)
         {
+            if (ModelState.ContainsKey("Erro"))
+            {
+                ModelState["Erro"].Errors.Clear();
+            }
+
             if (ModelState.IsValid)
             {
+                var jaExiste = db.Usuario.Where(x => x.Login == usuarioModel.Login).Any();
+
+                if (jaExiste)
+                {
+                    ModelState.AddModelError("Erro", "Nome de usuário já existente!");
+                    return View(usuarioModel);
+                }
+
                 usuarioModel.Senha = GeraMD5.GeraHash(usuarioModel.Senha);
 
                 db.Usuario.Add(usuarioModel);

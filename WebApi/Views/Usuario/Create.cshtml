@@ -5,6 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (ViewData.ModelState.Any(x => x.Key == "Erro"))
+{
+    <div class="form-group">
+        <div class="alert alert-danger span_error" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            @Html.ValidationMessage("erro")
+        </div>
+    </div>
+}
+
 <h2>Novo usuário</h2>
 
 @using (Html.BeginForm())

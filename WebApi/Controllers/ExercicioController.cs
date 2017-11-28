@@ -140,12 +140,25 @@ namespace WebApi.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (ModelState.ContainsKey("Erro"))
+            {
+                ModelState["Erro"].Errors.Clear();
+            }
+
             if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
             {
                 return RedirectToAction("Erro", "Home");
             }
 
+            var treinosEx = db.TreinoExercicio.Where(x => x.ExercicioFK == id).Any();
             ExercicioModel exercicioModel = db.Exercicio.Find(id);
+
+            if (treinosEx)
+            {
+                ModelState.AddModelError("Erro", "Existem treinos vinculas ao exercício, não é possível apaga-lo!");
+                return View(exercicioModel);
+            }
+
             db.Exercicio.Remove(exercicioModel);
             db.SaveChanges();
             return RedirectToAction("Index");
