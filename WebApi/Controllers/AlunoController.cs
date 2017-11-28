@@ -19,6 +19,11 @@ namespace WebApi.Controllers
         // GET: Aluno
         public ActionResult Index()
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Professor"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             var aluno = db.Aluno.Where(x => x.Professor.Usuario.Login == User.Identity.Name).ToList();
             return View(aluno);
         }
@@ -71,15 +76,29 @@ namespace WebApi.Controllers
         // GET: Aluno/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!System.Web.HttpContext.Current.User.IsInRole("Aluno"))
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
+            var usuarioLogado = db.Aluno.Where(x => x.Id == id).Select(x => x.Usuario).SingleOrDefault();
+
+            if (User.Identity.Name != usuarioLogado.Login)
+            {
+                return RedirectToAction("Erro", "Home");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             AlunoModel alunoModel = db.Aluno.Find(id);
             if (alunoModel == null)
             {
                 return HttpNotFound();
             }
+
             ViewBag.ProfessorFK = new SelectList(db.Professor, "Id", "Nome", alunoModel.ProfessorFK);
             ViewBag.UsuarioFK = new SelectList(db.Usuario, "Id", "Login", alunoModel.UsuarioFK);
             return View(alunoModel);
